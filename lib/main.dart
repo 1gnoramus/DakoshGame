@@ -1,12 +1,20 @@
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
+import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  Flame.device.setLandscapeLeftOnly();
+  Flame.device.fullScreen();
   runApp(GameWidget(game: DakoshaGame()));
+  FlameAudio.bgm.initialize();
+  FlameAudio.bgm.play('music/bgMusic.wav', volume: 0.15);
 }
 
-class DakoshaGame extends FlameGame {
+class DakoshaGame extends FlameGame with TapDetector {
   SpriteComponent dakoshaComponent = SpriteComponent();
   SpriteComponent tylerComponent = SpriteComponent();
 
@@ -49,5 +57,16 @@ class DakoshaGame extends FlameGame {
 
     final rect = Rect.fromLTWH(0, size.y * .69, size.x, size.y * .33);
     canvas.drawRect(rect, Paint()..color = Color.fromARGB(140, 191, 190, 190));
+  }
+
+  @override
+  void onTapDown(TapDownInfo info) {
+    if (FlameAudio.bgm.isPlaying) {
+      FlameAudio.bgm.pause();
+    } else {
+      FlameAudio.bgm.resume();
+    }
+    print('object');
+    super.onTapDown(info);
   }
 }
