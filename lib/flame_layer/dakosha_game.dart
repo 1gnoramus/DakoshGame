@@ -20,20 +20,20 @@ class DakoshaGame extends FlameGame with TapDetector {
       ),
     );
     //add char images
-    Vector2 characterSize = Vector2(size.y * .77, size.x * .44);
+    Vector2 characterSize = Vector2(size.x * .25, size.y * .55);
     tylerComponent
       ..size = characterSize
       ..sprite = await loadSprite('characters/TylerSmile.webp')
-      ..position = Vector2(55, 0);
+      ..position = Vector2(25, size.y * .15);
     add(tylerComponent);
     dakoshaComponent
       ..size = characterSize
       ..sprite = await loadSprite('characters/DakoshaSmile.webp')
-      ..position = Vector2(size.x * .55, 55);
+      ..position = Vector2(size.x * .85, size.y * .15);
     add(dakoshaComponent);
 
-    FlameAudio.bgm.initialize();
-    FlameAudio.bgm.play('music/bgMusic.wav', volume: 0.15);
+    // FlameAudio.bgm.initialize();
+    // FlameAudio.bgm.play('music/bgMusic.wav', volume: 0.15);
   }
 
   @override
@@ -44,13 +44,13 @@ class DakoshaGame extends FlameGame with TapDetector {
     super.update(dt);
   }
 
-  @override
-  void render(Canvas canvas) {
-    super.render(canvas);
+  // @override
+  // void render(Canvas canvas) {
+  //   super.render(canvas);
 
-    final rect = Rect.fromLTWH(0, size.y * .69, size.x, size.y * .33);
-    canvas.drawRect(rect, Paint()..color = Color.fromARGB(140, 191, 190, 190));
-  }
+  //   final rect = Rect.fromLTWH(0, size.y * .69, size.x, size.y * .33);
+  //   canvas.drawRect(rect, Paint()..color = Color.fromARGB(140, 191, 190, 190));
+  // }
 
   @override
   void onTapDown(TapDownInfo info) {
