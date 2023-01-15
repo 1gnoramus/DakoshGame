@@ -1,4 +1,5 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:dakosh/data/storyline100.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +43,7 @@ class FlutterLayer extends StatelessWidget {
                 const EdgeInsets.symmetric(horizontal: 25.0, vertical: 20.0),
             child: AnimatedTextKit(isRepeatingAnimation: false, animatedTexts: [
               TypewriterAnimatedText(
-                'dial',
+                storyline100Dialogue[3].text,
                 speed: const Duration(milliseconds: 140),
                 textStyle: TextStyle(fontSize: 30, color: Color(0xFF521945)),
               ),

@@ -1,59 +1,30 @@
-import 'package:flame/components.dart';
+import 'package:dakosh/data/storyline100.dart';
+import 'package:dakosh/flame_layer/dialogue_component.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
-import 'package:flame_audio/flame_audio.dart';
-import 'package:flutter/material.dart';
 
 class DakoshaGame extends FlameGame with TapDetector {
-  SpriteComponent dakoshaComponent = SpriteComponent();
-  SpriteComponent tylerComponent = SpriteComponent();
+  int dialogId = 101;
 
   @override
   Future<void> onLoad() async {
     await super.onLoad();
 
-    //add bg image
-    add(
-      SpriteComponent(
-        size: size,
-        sprite: await loadSprite('bgs/Street.png'),
-      ),
-    );
-    //add char images
-    Vector2 characterSize = Vector2(size.x * .25, size.y * .55);
-    tylerComponent
-      ..size = characterSize
-      ..sprite = await loadSprite('characters/TylerSmile.webp')
-      ..position = Vector2(25, size.y * .15);
-    add(tylerComponent);
-    dakoshaComponent
-      ..size = characterSize
-      ..sprite = await loadSprite('characters/DakoshaSmile.webp')
-      ..position = Vector2(size.x * .85, size.y * .15);
-    add(dakoshaComponent);
+    add(DialogueComponent());
 
     // FlameAudio.bgm.initialize();
     // FlameAudio.bgm.play('music/bgMusic.wav', volume: 0.15);
   }
 
   @override
-  void update(double dt) {
-    if (dakoshaComponent.x > size.x / 2) {
-      dakoshaComponent.x -= 100 * dt;
-    }
-    super.update(dt);
-  }
-
-  // @override
-  // void render(Canvas canvas) {
-  //   super.render(canvas);
-
-  //   final rect = Rect.fromLTWH(0, size.y * .69, size.x, size.y * .33);
-  //   canvas.drawRect(rect, Paint()..color = Color.fromARGB(140, 191, 190, 190));
-  // }
-
-  @override
   void onTapDown(TapDownInfo info) {
+    if (children.isNotEmpty) {
+      removeAll(children);
+    }
+    if (dialogId - 101 < storyline100Dialogue.length - 1) {
+      dialogId++;
+    }
+    add(DialogueComponent());
     super.onTapDown(info);
   }
 }
