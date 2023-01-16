@@ -4,6 +4,10 @@ List<Dialogue> storyline100Dialogue = [
   Dialogue(
       location: Location.street,
       characterName: CharacterName.dakosha,
+      text: '*3:00. Center of the Almaty, near of Globus*'),
+  Dialogue(
+      location: Location.street,
+      characterName: CharacterName.dakosha,
       text: 'Yernaaaar! What are you doing here?'),
   Dialogue(
       location: Location.street,
@@ -13,7 +17,7 @@ List<Dialogue> storyline100Dialogue = [
   Dialogue(
       location: Location.street,
       characterName: CharacterName.dakosha,
-      text: 'Wow, that\'s actually vey nice. Let me have a walk with you?  '),
+      text: 'Wow, that\'s actually very nice. Let me have a walk with you?  '),
   Dialogue(
       location: Location.street,
       characterName: CharacterName.madi,

@@ -1,8 +1,10 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:dakosh/data/storyline100.dart';
 import 'package:flame_audio/flame_audio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../cubit/dialogue/dialogue_cubit.dart';
 
 class FlutterLayer extends StatelessWidget {
   const FlutterLayer({super.key});
@@ -26,7 +28,7 @@ class FlutterLayer extends StatelessWidget {
                   FlameAudio.bgm.resume();
                 }
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.volume_up_rounded,
                 color: Color(0xa0eaf2ef),
                 size: 36,
@@ -34,21 +36,31 @@ class FlutterLayer extends StatelessWidget {
             )
           ],
         ),
-        Container(
-          height: screenHeight * .3,
-          width: screenWidth,
-          color: Color(0xa0eaf2ef),
-          child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 25.0, vertical: 20.0),
-            child: AnimatedTextKit(isRepeatingAnimation: false, animatedTexts: [
-              TypewriterAnimatedText(
-                storyline100Dialogue[3].text,
-                speed: const Duration(milliseconds: 140),
-                textStyle: TextStyle(fontSize: 30, color: Color(0xFF521945)),
+        BlocBuilder<DialogueCubit, DialogueState>(
+          builder: (context, state) {
+            String dialogueText =
+                storyline100Dialogue[state.dialogueId - 101].text;
+            return Container(
+              height: screenHeight * .3,
+              width: screenWidth,
+              color: Color(0xa0eaf2ef),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 25.0, vertical: 20.0),
+                child: AnimatedTextKit(
+                    key: ValueKey<String>(dialogueText),
+                    isRepeatingAnimation: false,
+                    animatedTexts: [
+                      TypewriterAnimatedText(
+                        dialogueText,
+                        speed: const Duration(milliseconds: 140),
+                        textStyle:
+                            TextStyle(fontSize: 30, color: Color(0xFF521945)),
+                      ),
+                    ]),
               ),
-            ]),
-          ),
+            );
+          },
         )
       ],
     );

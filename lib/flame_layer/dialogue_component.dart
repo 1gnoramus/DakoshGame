@@ -49,14 +49,23 @@ class DialogueComponent extends PositionComponent with HasGameRef<DakoshaGame> {
 
   @override
   void update(double dt) {
-    dialogue = storyline100Dialogue[gameRef.dialogId - 101];
+    dialogue =
+        storyline100Dialogue[gameRef.dialogueCubit.state.dialogueId - 101];
+    moveCharacter(dt);
+    changeCharacter();
+    super.update(dt);
+  }
+
+  void moveCharacter(double dt) {
     if (characterComponent.x < gameRef.size.x / 3) {
       characterComponent.x += 100 * dt;
     } else if (!characterFlipped) {
       characterComponent.flipHorizontallyAroundCenter();
       characterFlipped = true;
     }
+  }
 
+  void changeCharacter() {
     switch (dialogue.characterName) {
       case CharacterName.dakosha:
         characterComponent.sprite = dakoshaSprite;
@@ -68,6 +77,5 @@ class DialogueComponent extends PositionComponent with HasGameRef<DakoshaGame> {
         secondaryCharacterComponent.sprite = dakoshaSprite;
         break;
     }
-    super.update(dt);
   }
 }
